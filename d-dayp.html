@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💖 Birthday Surprise 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:Poppins,sans-serif;
+  background:black;
+  color:#fff;
+}
+
+/* Pages */
+.page{
+  display:none;
+  min-height:100vh;
+  width:100vw;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  text-align:center;
+  padding:40px 20px;
+  animation:fade 1s ease;
+}
+
+.page.active{display:flex}
+.scrollable{overflow-y:auto}
+
+@keyframes fade{
+  from{opacity:0;transform:scale(.95)}
+  to{opacity:1;transform:scale(1)}
+}
+
+h1{
+  font-size:clamp(2.2rem,6vw,4rem);
+  font-weight:800;
+  background:linear-gradient(90deg,#ff8a00,#ff2fd3,#7b6cff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+input{
+  padding:14px 20px;
+  border-radius:30px;
+  border:none;
+  font-size:1rem;
+  width:260px;
+  margin-top:20px;
+  text-align:center;
+}
+
+button{
+  margin-top:30px;
+  padding:14px 36px;
+  border-radius:999px;
+  border:none;
+  font-size:1rem;
+  cursor:pointer;
+  background:linear-gradient(135deg,#ff2fd3,#7b6cff);
+  color:#fff;
+}
+button:hover{transform:scale(1.1)}
+
+/* Card */
+.card{
+  background:rgba(255,255,255,.1);
+  border-radius:24px;
+  padding:40px;
+  max-width:520px;
+  box-shadow:0 20px 50px rgba(0,0,0,.6);
+  animation:float 3s ease-in-out infinite;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+
+/* Typing */
+.typing{
+  font-size:1.2rem;
+  max-width:900px;
+  line-height:1.9;
+  margin:40px auto;
+  padding-bottom:80px;
+}
+
+/* Candle */
+#flame{
+  width:20px;height:30px;
+  background:radial-gradient(circle,#ffd166,#ff6b00);
+  border-radius:50%;
+  animation:flicker .15s infinite;
+}
+@keyframes flicker{
+  0%{transform:scale(1)}
+  50%{transform:scale(.85)}
+  100%{transform:scale(1)}
+}
+
+/* FULL WIDTH AUTO ROLLING PHOTOS */
+.carousel{
+  width:100vw;
+  overflow:hidden;
+  margin:40px 0;
+}
+
+.carousel-track{
+  display:flex;
+  width:max-content;
+  animation:scrollPhotos 25s linear infinite;
+}
+
+/* NO SIZE REDUCTION */
+.carousel img{
+  height:260px;          /* fixed height */
+  width:auto;            /* keep original width */
+  object-fit:cover;
+}
+
+/* corner to corner rolling */
+@keyframes scrollPhotos{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+/* Hearts */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation:heartFloat linear forwards;
+  pointer-events:none;
+  z-index:1;
+}
+@keyframes heartFloat{
+  from{transform:translateY(0)}
+  to{transform:translateY(-120vh)}
+}
+
+/* Fireworks canvas */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+<h1>🎂 Welcome 🎂</h1>
+<p>Enter your name to unlock the surprise</p>
+<input id="nameInput" placeholder="Your Name">
+<button onclick="goToPage2()">Continue ✨</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+<div class="card">
+<h1 id="cardName"></h1>
+<p style="margin-top:15px">Make a wish & blow the candle 🕯️</p>
+
+<div style="margin:30px auto;width:60px;height:120px;background:#fff;border-radius:10px;position:relative">
+<div id="flame" style="position:absolute;top:-25px;left:50%;transform:translateX(-50%)"></div>
+</div>
+
+<h2 id="countdown"></h2>
+<button onclick="blowCandle()">Blow Candle 💨</button>
+</div>
+</div>
+
+<!-- PAGE 3 (SCROLLABLE) -->
+<div class="page scrollable" id="page3">
+
+<h1>💌 A Message Just For You</h1>
+
+<!-- FULL SCREEN CORNER TO CORNER PHOTOS -->
+<div class="carousel">
+<div class="carousel-track">
+
+<img src="https://i.pinimg.com/736x/05/56/26/05562695634a1cfe70b98e97e4d7ac1d.jpg">
+<img src="https://i.pinimg.com/736x/5e/b3/4e/5eb34ee64ee502c839c7e4552a0530b2.jpg">
+<img src="https://i.pinimg.com/736x/85/ae/b1/85aeb131e2665fe33ba14574751eec04.jpg">
+<img src="https://i.pinimg.com/736x/1d/b7/b5/1db7b5bc32d6277c77715ea0a2bf79fb.jpg">
+<img src="https://i.pinimg.com/736x/1e/e8/44/1ee844b09980adf9638c1482960116d5.jpg">
+<img src="https://i.pinimg.com/736x/e3/24/c7/e324c787b7869e00d19879062dff8376.jpg">
+<img src="https://i.pinimg.com/1200x/ce/f6/25/cef62516ae67093842121510137bc8c8.jpg">
+<img src="https://i.pinimg.com/736x/38/b4/f0/38b4f0174db191fa098598170c9a16c4.jpg">
+<img src="https://i.pinimg.com/736x/55/fd/2f/55fd2f7da28c32aee6cd8a4b6df3551b.jpg">
+
+<!-- duplicate for infinite loop -->
+<img src="https://i.pinimg.com/736x/05/56/26/05562695634a1cfe70b98e97e4d7ac1d.jpg">
+<img src="https://i.pinimg.com/736x/5e/b3/4e/5eb34ee64ee502c839c7e4552a0530b2.jpg">
+<img src="https://i.pinimg.com/736x/85/ae/b1/85aeb131e2665fe33ba14574751eec04.jpg">
+<img src="https://i.pinimg.com/736x/1d/b7/b5/1db7b5bc32d6277c77715ea0a2bf79fb.jpg">
+<img src="https://i.pinimg.com/736x/1e/e8/44/1ee844b09980adf9638c1482960116d5.jpg">
+<img src="https://i.pinimg.com/736x/e3/24/c7/e324c787b7869e00d19879062dff8376.jpg">
+<img src="https://i.pinimg.com/1200x/ce/f6/25/cef62516ae67093842121510137bc8c8.jpg">
+<img src="https://i.pinimg.com/736x/38/b4/f0/38b4f0174db191fa098598170c9a16c4.jpg">
+<img src="https://i.pinimg.com/736x/55/fd/2f/55fd2f7da28c32aee6cd8a4b6df3551b.jpg">
+</div>
+</div>
+
+<div class="typing" id="typing"></div>
+
+</div>
+
+<script>
+
+/* FLOWING HEARTS */
+function createHeart(){
+const h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💖";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=16+Math.random()*24+"px";
+h.style.animationDuration=6+Math.random()*6+"s";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),12000);
+}
+setInterval(createHeart,300);
+
+/* PAGE FLOW */
+let userName="";
+function goToPage2(){
+userName=nameInput.value.trim();
+if(!userName)return alert("Enter a name 💗");
+cardName.innerText=`Happy Birthday, ${userName}! 🎉`;
+switchPage(1,2);
+}
+function switchPage(a,b){
+document.getElementById(`page${a}`).classList.remove("active");
+document.getElementById(`page${b}`).classList.add("active");
+}
+
+/* CANDLE */
+let blown=false;
+function blowCandle(){
+if(blown)return;
+blown=true;
+let t=3;
+countdown.innerText=t;
+
+const timer=setInterval(()=>{
+t--;
+countdown.innerText=t>0?t:"✨ Wish Made ✨";
+if(t<=0){
+clearInterval(timer);
+flame.style.display="none";
+setTimeout(()=>{switchPage(2,3);typeMessage()},1200);
+}
+},1000);
+}
+
+/* LONG MESSAGE */
+function typeMessage(){
+const msg=`Dear ${userName},
+
+Today is a celebration of you.
+A celebration of your smile,
+your kindness,
+your strength,
+and the joy you bring into the lives of everyone around you.
+
+You make the world brighter.
+You make hearts warmer.
+You make life more meaningful.
+
+May your future be filled with endless happiness,
+peaceful mornings,
+beautiful memories,
+limitless success,
+and dreams that always come true.
+
+You deserve every good thing.
+You deserve every beautiful moment.
+You deserve a lifetime of love and joy.
+
+Happy Birthday.
+May your life always shine with happiness. 💖✨`;
+
+let i=0;
+typing.innerHTML="";
+const t=setInterval(()=>{
+typing.innerHTML+=msg[i]?.replace("\n","<br>")||"";
+i++;
+if(i>=msg.length)clearInterval(t);
+},30);
+}
+
+/* FIREWORKS */
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+resize();addEventListener("resize",resize);
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+
+let particles=[];
+function burst(x,y){
+for(let i=0;i<60;i++){
+particles.push({
+x,y,
+angle:Math.random()*Math.PI*2,
+speed:Math.random()*5+2,
+life:80,
+color:`hsl(${Math.random()*360},100%,60%)`
+});
+}
+}
+setInterval(()=>burst(Math.random()*canvas.width,Math.random()*canvas.height/2),800);
+
+function animate(){
+ctx.fillStyle="rgba(0,0,0,.2)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+particles.forEach((p,i)=>{
+p.x+=Math.cos(p.angle)*p.speed;
+p.y+=Math.sin(p.angle)*p.speed;
+p.life--;
+ctx.fillStyle=p.color;
+ctx.fillRect(p.x,p.y,3,3);
+if(p.life<=0)particles.splice(i,1);
+});
+requestAnimationFrame(animate);
+}
+animate();
+
+</script>
+</body>
+</html>
